@@ -8,7 +8,7 @@ build:
   local:
     push: false
   artifacts:
-    - image: logicalbrains/auth
+    - image: skmuddamsetty/auth
       context: auth
       docker:
         dockerfile: Dockerfile

@@ -1,0 +1,60 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    # with the manifests we are telling skaffold that we need to watch all the config files in the given path ./infra/k8s/*
+    manifests:
+      - ./infra/k8s/*
+build:
+  # with local push as false we are telling skaffold to not push the images to dockerhub
+  local:
+    push: false
+  artifacts:
+    - image: skmuddamsetty/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*./js'
+            dest: .
+    - image: skmuddamsetty/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: skmuddamsetty/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: skmuddamsetty/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: skmuddamsetty/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: skmuddamsetty/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .

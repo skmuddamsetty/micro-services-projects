@@ -1,3 +1,11 @@
+# build or rebuild an image
+
+docker build -t skmuddamsetty/posts:0.0.5 .
+
+# push an image to docker hub
+
+docker push skmuddamsetty/posts
+
 # Create a pod using kubectl
 
 k apply -f posts.yaml
@@ -17,3 +25,7 @@ k delete deployment depl_name
 # describe a deployment
 
 k describe deployment depl_name
+
+# rollout and restart a deployment
+
+k rollout restart deployment depl_name

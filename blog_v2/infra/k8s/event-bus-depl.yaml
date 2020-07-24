@@ -1,41 +1,40 @@
 apiVersion: apps/v1
-# kind indicates the kind of object we want to create in kubernetes
 kind: Deployment
 metadata:
-  name: posts-depl
+  name: event-bus-depl
 spec:
   # indicates how many containers we need in this pod
   replicas: 1
-  # selector here is telling deployment to find all pods with given label app:posts and telling the deployment that those are the pods it should be incharge of.
+  # selector here is telling deployment to find all pods with given label app:event-bus and telling the deployment that those are the pods it should be incharge of.
   selector:
     matchLabels:
-      app: posts
+      app: event-bus
   # template is the exact configuration of the deployment we want to create
-  # here we are telling that the pod should have a label of app:posts
+  # here we are telling that the pod should have a label of app:event-bus
   template:
     metadata:
       labels:
-        app: posts
+        app: event-bus
     spec:
       containers:
-        - name: posts
-          image: skmuddamsetty/posts:latest
+        - name: event-bus
+          image: skmuddamsetty/event-bus:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-clusterip-srv
+  name: event-bus-srv
 spec:
   type: ClusterIP
-  # here selector is telling the service to select all the pods with the name app:posts
+  # here selector is telling the service to select all the pods with the name app:event-bus
   # FYI this is the same label that has been given to the pod while creating the pod using deployment inside template section
   selector:
-    app: posts
+    app: event-bus
   ports:
     # name here is for logging purposes and need not be same as pod name, it can be anything. For ex: akjwndajknwd
-    - name: posts
+    - name: event-bus
       protocol: TCP
       # port is the port of node port or cluster ip service port that will be created
-      port: 4000
+      port: 4005
       # targetPort is the port our node application is running on
-      targetPort: 4000
+      targetPort: 4005

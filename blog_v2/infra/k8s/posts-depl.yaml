@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+# kind indicates the kind of object we want to create in kubernetes
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  # indicates how many containers we need in this pod
+  replicas: 1
+  # selector here is telling deployment to find all pods with given label app:posts and telling the deployment that those are the pods it should be incharge of.
+  selector:
+    matchLabels:
+      app: posts
+  # template is the exact configuration of the deployment we want to create
+  # here we are telling that the pod should have a label of app:posts
+  template:
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+        - name: posts
+          image: skmuddamsetty/posts:0.0.1

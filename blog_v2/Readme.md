@@ -9,3 +9,11 @@ k delete pod pod_name
 # logs inside a pod
 
 k describe pod pod_name
+
+# delete a deployment
+
+k delete deployment depl_name
+
+# describe a deployment
+
+k describe deployment depl_name

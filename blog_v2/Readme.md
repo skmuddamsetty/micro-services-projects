@@ -26,7 +26,7 @@ k delete deployment depl_name
 
 k describe deployment depl_name
 
-# rollout and restart a deployment
+# rollout and restart a deployment. This is to push a code change. Before rolling out build an image with updated code
 
 k rollout restart deployment depl_name
 

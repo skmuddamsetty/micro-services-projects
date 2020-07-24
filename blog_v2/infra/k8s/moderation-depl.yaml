@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+# kind indicates the kind of object we want to create in kubernetes
+kind: Deployment
+metadata:
+  name: moderation-depl
+spec:
+  # indicates how many containers we need in this pod
+  replicas: 1
+  # selector here is telling deployment to find all pods with given label app:moderation and telling the deployment that those are the pods it should be incharge of.
+  selector:
+    matchLabels:
+      app: moderation
+  # template is the exact configuration of the deployment we want to create
+  # here we are telling that the pod should have a label of app:moderation
+  template:
+    metadata:
+      labels:
+        app: moderation
+    spec:
+      containers:
+        - name: moderation
+          image: skmuddamsetty/moderation:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderation-srv
+spec:
+  type: ClusterIP
+  # here selector is telling the service to select all the pods with the name app:moderation
+  # FYI this is the same label that has been given to the pod while creating the pod using deployment inside template section
+  selector:
+    app: moderation
+  ports:
+    # name here is for logging purposes and need not be same as pod name, it can be anything. For ex: akjwndajknwd
+    - name: moderation
+      protocol: TCP
+      # port is the port of node port or cluster ip service port that will be created
+      port: 4003
+      # targetPort is the port our node application is running on
+      targetPort: 4003

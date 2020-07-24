@@ -1,0 +1,21 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    # with the manifests we are telling skaffold that we need to watch all the config files in the given path ./infra/k8s/*
+    manifests:
+      - ./infra/k8s/*
+build:
+  # with local push as false we are telling skaffold to not push the images to dockerhub
+  local:
+    push: false
+  artifacts:
+    - image: skmuddamsetty/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            # dest with . means that we are telling skaffold to copy the files to folder inside container relative to the give src path in above line
+            dest: .

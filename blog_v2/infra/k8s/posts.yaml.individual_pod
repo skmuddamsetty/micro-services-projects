@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  # giving a pod with name posts
+  name: posts
+# spec is the list of configuration options for the pod we are about to create
+spec:
+  containers:
+    # we are telling that the container should be created with name posts
+    - name: posts
+      image: skmuddamsetty/posts:0.0.1

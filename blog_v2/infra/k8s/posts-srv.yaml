@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv
+spec:
+  type: NodePort
+  # here selector is telling the service to select all the pods with the name app:posts
+  # FYI this is the same label that has been given to the pod while creating the pod using deployment inside template section
+  selector:
+    app: posts
+  ports:
+    # name here is for logging purposes and need not be same as pod name, it can be anything. For ex: akjwndajknwd
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

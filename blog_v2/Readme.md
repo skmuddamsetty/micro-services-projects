@@ -29,3 +29,13 @@ k describe deployment depl_name
 # rollout and restart a deployment
 
 k rollout restart deployment depl_name
+
+# get the services running inside k cluster
+
+k get services
+
+4000:32334/TCP - here 32334 is the port that can be accessed from outside world
+
+# describe a service
+
+k describe service posts-srv

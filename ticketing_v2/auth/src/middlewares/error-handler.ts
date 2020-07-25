@@ -8,6 +8,7 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  // modification # 1
   // if (err instanceof RequestValidationError) {
   //   const formattedErrors = err.errors.map((error) => {
   //     return { message: error.msg, field: error.param };

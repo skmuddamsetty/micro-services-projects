@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
+import { RequestValidationError } from '../errors/request-validation-error';
+import { DatabaseConnectionError } from '../errors/database-connection-error';
 const router = express.Router();
 router.post(
   '/api/users/signup',
@@ -13,9 +15,9 @@ router.post(
   (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      throw new Error('Invalid email or password');
+      throw new RequestValidationError(errors.array());
     }
-    throw new Error('Error connecting to db!');
+    throw new DatabaseConnectionError();
     const { email, password } = req.body;
     res.send('Hi There!');
   }

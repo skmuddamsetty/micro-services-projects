@@ -13,8 +13,9 @@ router.post(
   (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).send(errors.array());
+      throw new Error('Invalid email or password');
     }
+    throw new Error('Error connecting to db!');
     const { email, password } = req.body;
     res.send('Hi There!');
   }

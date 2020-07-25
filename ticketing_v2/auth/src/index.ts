@@ -6,6 +6,7 @@ import { signOutRouter } from './routes/signout';
 import { signUpRouter } from './routes/signup';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
+import 'express-async-errors';
 
 const app = express();
 
@@ -19,7 +20,8 @@ app.use(signOutRouter);
 app.use(signUpRouter);
 
 // handling unknown routes
-app.all('*', () => {
+// throw syntax is working inside async block because of the package express-async-errors
+app.all('*', async () => {
   throw new NotFoundError();
 });
 

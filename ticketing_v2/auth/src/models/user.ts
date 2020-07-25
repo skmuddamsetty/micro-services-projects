@@ -10,7 +10,7 @@ interface UserAttrs {
 // this is required because we have to tell typescript that there is a build function available on this model
 // without this, if you are accessing User.build({}), typescript is going to complain that it cannot find the build method
 interface UserModel extends mongoose.Model<UserDoc> {
-  build(userAttrs: UserAttrs): UserDoc;
+  build(attrs: UserAttrs): UserDoc;
 }
 
 // an interface that describes the properties a User Document has
@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema({
 
 // defining static properties on userSchema
 // in other words adding a function to a model
-userSchema.statics.build = (userAttrs: UserAttrs) => {
-  return new User(userAttrs);
+userSchema.statics.build = (attrs: UserAttrs) => {
+  return new User(attrs);
 };
 
 // creating a model from schema

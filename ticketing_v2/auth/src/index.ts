@@ -2,7 +2,7 @@ import express from 'express';
 import { json } from 'body-parser';
 import 'express-async-errors';
 import mongoose from 'mongoose';
-
+import cookieSession from 'cookie-session';
 import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/signin';
 import { signOutRouter } from './routes/signout';
@@ -12,8 +12,20 @@ import { NotFoundError } from './errors/not-found-error';
 
 const app = express();
 
+// we are telling express that it should trust the traffic coming through ingress-nginx
+// this is required because we have added cookie-session package and said that it should only work in https connections.
+app.set('trust proxy', true);
+
 // body parser
 app.use(json());
+
+// cookie-session middleware
+app.use(
+  cookieSession({
+    signed: false, // disables encryption
+    secure: true,
+  })
+);
 
 // routes
 app.use(currentUserRouter);

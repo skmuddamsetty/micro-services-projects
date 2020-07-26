@@ -21,6 +21,13 @@ spec:
         # name here is just for logging purposes and we are giving the container a name of auth
         - name: auth
           image: skmuddamsetty/auth:latest
+          env:
+            # name here is used inside code for accessing this key
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service

@@ -2,7 +2,7 @@ import express from 'express';
 import { json } from 'body-parser';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError } from '@skmtickets/common';
+import { errorHandler, NotFoundError, currentUser } from '@skmtickets/common';
 import { createTicketRouter } from './routes/new';
 
 const app = express();
@@ -21,6 +21,9 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   })
 );
+
+// make sure you run the below statement after cookieSession
+app.use(currentUser);
 
 // routes
 app.use(createTicketRouter);

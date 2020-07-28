@@ -6,6 +6,7 @@ import { errorHandler, NotFoundError, currentUser } from '@skmtickets/common';
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
 import { showAllTicketsRouter } from './routes';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
 app.use(showAllTicketsRouter);
+app.use(updateTicketRouter);
 
 // handling unknown routes
 // throw syntax is working inside async block because of the package express-async-errors

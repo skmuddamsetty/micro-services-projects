@@ -1,9 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import buildClient from '../api/build-client';
+import Header from '../components/header';
+
 const AppComponent = ({ Component, pageProps, currentUser }) => {
+  // currentUser is coming from data property inside getInitialProps
   return (
     <div className='App'>
-      <h1>{currentUser.email}</h1>
+      <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </div>
   );

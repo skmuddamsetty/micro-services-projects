@@ -39,3 +39,11 @@ k get services
 # describe a service
 
 k describe service posts-srv
+
+# to get namespaces inside a k cluster
+
+k get namespaces
+
+# to get all services inside a namespace
+
+k get services -n namespacename

@@ -47,3 +47,7 @@ k get namespaces
 # to get all services inside a namespace
 
 k get services -n namespacename
+
+# to increment the npm version
+
+npm version patch

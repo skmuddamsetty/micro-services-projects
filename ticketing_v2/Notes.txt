@@ -4,3 +4,5 @@ Section 9 Start
 Section 10 Start
 1) How to Create a secret object inside kubernetes
 k create secret generic jwt-secret --from-literal=jwt=asdf
+
+// files will make sure that the files inside the specified directory are included in the final published version of the directory

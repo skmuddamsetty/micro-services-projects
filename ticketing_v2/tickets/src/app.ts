@@ -4,6 +4,7 @@ import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@skmtickets/common';
 import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(currentUser);
 
 // routes
 app.use(createTicketRouter);
+app.use(showTicketRouter);
 
 // handling unknown routes
 // throw syntax is working inside async block because of the package express-async-errors

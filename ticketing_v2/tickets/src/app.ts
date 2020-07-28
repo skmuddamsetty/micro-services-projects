@@ -3,6 +3,7 @@ import { json } from 'body-parser';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError } from '@skmtickets/common';
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(
 );
 
 // routes
+app.use(createTicketRouter);
 
 // handling unknown routes
 // throw syntax is working inside async block because of the package express-async-errors

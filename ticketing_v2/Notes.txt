@@ -2,6 +2,7 @@ Section 8 Start
 Section 8 End
 Section 9 Start
 Section 10 Start
+Section 13 start
 1) How to Create a secret object inside kubernetes
 k create secret generic jwt-secret --from-literal=jwt=asdf
 

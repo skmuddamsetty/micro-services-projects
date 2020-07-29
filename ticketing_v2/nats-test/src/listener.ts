@@ -9,13 +9,15 @@ const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), {
 });
 stan.on('connect', () => {
   console.log('Listener connected to nats!');
-  const subscription = stan.subscribe('ticket:created');
+  const subscription = stan.subscribe(
+    'ticket:created',
+    // orders-service-queue-group is a queue group which makes sure that the event is sent to only one listener which are attached to this queue group
+    'orders-service-queue-group'
+  );
   subscription.on('message', (msg: Message) => {
     const data = msg.getData();
     if (typeof data === 'string') {
-      console.log(
-        `Received Event Number ${msg.getSequence()}, with data ${data}`
-      );
+      console.log(`Received Event # ${msg.getSequence()}, with data ${data}`);
     }
   });
 });

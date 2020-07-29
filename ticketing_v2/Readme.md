@@ -51,3 +51,7 @@ k get services -n namespacename
 # to increment the npm version
 
 npm version patch
+
+# Port forwarding command
+
+k port-forward podname 4222:4222

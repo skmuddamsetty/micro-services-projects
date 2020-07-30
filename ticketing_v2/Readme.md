@@ -57,3 +57,7 @@ npm version patch
 k port-forward podname 4222:4222
 ex: k port-forward nats-depl-5ffb66495f-glvc8 4222:4222
 k port-forward nats-depl-5ffb66495f-glvc8 8222:8222
+
+# to delete trash data inside a nats pod
+
+k delete pod nats-depl-5ffb66495f-glvc8

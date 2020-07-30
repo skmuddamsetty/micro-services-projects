@@ -2,6 +2,7 @@ import { ValidationError } from 'express-validator';
 import { CustomError } from './custom-error';
 
 // interface example
+// here we did not implement this interface in RequestValidationError because by using interface we cannot do a instance of check in Custom Error
 // interface CustomError {
 //   statusCode: number;
 //   serializeErrors(): {

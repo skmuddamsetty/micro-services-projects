@@ -6,7 +6,7 @@ console.clear();
 const stan = nats.connect('ticketing', 'abc', { url: 'http://localhost:4222' });
 
 // below function is executed after the client is successfully connected to the nats streaming server
-stan.on('connect', () => {
+stan.on('connect', async () => {
   console.log('Publisher connected to nats!');
   /********** commenting old logic */
   // const data = JSON.stringify({
@@ -18,9 +18,13 @@ stan.on('connect', () => {
   //   console.log('Event Published!');
   // });
   const publisher = new TicketCreatedPublisher(stan);
-  publisher.publish({
-    id: 'jbskjdba123',
-    title: 'concert',
-    price: 20,
-  });
+  try {
+    await publisher.publish({
+      id: 'jbskjdba123',
+      title: 'concert',
+      price: 20,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });

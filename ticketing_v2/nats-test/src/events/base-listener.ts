@@ -1,23 +1,30 @@
 import { Stan, Message } from 'node-nats-streaming';
 import { Subjects } from './subjects';
 
+// this interface describes a very generic kind of event
+// we are telling that is something is an event it is going to have subject of type from Subjects and data of any
 interface Event {
   subject: Subjects;
   data: any;
 }
 
 // we are using abstract class and abstract properties in order to customize the these in sub-classes
+// Listener<T extends Event> using this we are telling typescipt that this is a generic class
+// T extends event - this means that whenever we try to use listener we are going to have to provide some custom type of type Event
+// this is how we are enforcing the coupling between subject and data inside of actual listener i.e. TicketCreatedListener
 export abstract class Listener<T extends Event> {
   // need to send in the pre-initialized stan client
   private client: Stan;
   // Name of the channel this listener is going to listen to
   // this is implemented in subclass since this is an abstract property
+  // T['subject] comes from the actual implementor of this class For ex: TicketCreatedListener
   abstract subject: T['subject'];
   // this is queueGroupName that this listener has to be attached to
   // this has to be implemented by sub-class
   abstract queueGroupName: string;
   // function to run when the message has been received
   // this is implemented in the subclass
+  // T['data] comes from the actual implementor of this class For ex: TicketCreatedListener
   abstract onMessage(data: T['data'], msg: Message): void;
   // protected here is useful if the subclass wants to overwrite this
   protected ackWait = 5 * 1000; // 5 Seconds

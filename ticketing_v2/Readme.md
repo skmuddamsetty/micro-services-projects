@@ -55,3 +55,5 @@ npm version patch
 # Port forwarding command
 
 k port-forward podname 4222:4222
+ex: k port-forward nats-depl-5ffb66495f-glvc8 4222:4222
+k port-forward nats-depl-5ffb66495f-glvc8 8222:8222

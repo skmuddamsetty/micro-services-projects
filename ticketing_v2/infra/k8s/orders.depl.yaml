@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+# kind indicates the kind of object we want to create in kubernetes
+kind: Deployment
+metadata:
+  name: orders-depl
+spec:
+  # indicates how many containers we need in this pod
+  replicas: 1
+  # selector here is telling deployment to find all pods with given label app:orders and telling the deployment that those are the pods it should be incharge of.
+  selector:
+    matchLabels:
+      app: orders
+  # template is the exact configuration of the deployment we want to create
+  # here we are telling that the pod should have a label of app:orders
+  template:
+    metadata:
+      labels:
+        app: orders
+    spec:
+      containers:
+        # name here is just for logging purposes and we are giving the container a name of orders
+        - name: orders
+          image: skmuddamsetty/orders:latest
+          env:
+            # name here is used inside code for accessing this key
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: MONGO_URI
+              value: 'mongodb://orders-mongo-srv:27017/orders'
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-srv
+spec:
+  type: ClusterIP
+  # here selector is telling the service to select all the pods with the name app:orders
+  # FYI this is the same label that has been given to the pod while creating the pod using deployment inside template section i.e app:orders
+  selector:
+    app: orders
+  ports:
+    # name here is for logging purposes and need not be same as pod name, it can be anything. For ex: akjwndajknwd
+    - name: orders
+      protocol: TCP
+      # port is the port of node port or cluster ip service port that will be created
+      port: 3000
+      # targetPort is the port our node application is running on
+      targetPort: 3000

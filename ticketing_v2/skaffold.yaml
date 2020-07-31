@@ -37,3 +37,12 @@ build:
           - src: 'src/**/*.ts'
             # dest with . means that we are telling skaffold to copy the files to folder inside container relative to the give src path in above line
             dest: .
+    - image: skmuddamsetty/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            # dest with . means that we are telling skaffold to copy the files to folder inside container relative to the give src path in above line
+            dest: .

@@ -11,7 +11,9 @@ const start = async () => {
     throw new Error('MONGO_URI must be defined!');
   }
   try {
+    // nats connection
     await natsWrapper.connect('ticketing', 'asdf', 'http://nats-srv:4222');
+    // nats graceful shutdown
     natsWrapper.client.on('close', () => {
       console.log('NATS connection closed!');
       process.exit();

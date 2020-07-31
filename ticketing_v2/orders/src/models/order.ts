@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { OrderStatus } from '@skmtickets/common';
+import { TicketDoc } from './ticket';
 
 interface OrderAttrs {
   userId: string;

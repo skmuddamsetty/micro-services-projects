@@ -38,13 +38,13 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
     });
-    console.log('Connected to MongoDB inside Tickets application!');
+    console.log('Connected to MongoDB inside Orders application!');
   } catch (error) {
     console.error(error);
   }
   // server start
   app.listen(3000, () => {
-    console.log('Tickets Service listening on port 3000!');
+    console.log('Orders Service listening on port 3000!');
   });
 };
 

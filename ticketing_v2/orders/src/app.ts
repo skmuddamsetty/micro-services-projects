@@ -3,10 +3,10 @@ import { json } from 'body-parser';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@skmtickets/common';
-import { createTicketRouter } from './routes/new';
-import { showTicketRouter } from './routes/show';
-import { showAllTicketsRouter } from './routes';
-import { updateTicketRouter } from './routes/update';
+import { createOrderRouter } from './routes/new';
+import { showOrderRouter } from './routes/show';
+import { showAllOrdersRouter } from './routes';
+import { deleteOrderRouter } from './routes/delete';
 
 const app = express();
 
@@ -29,10 +29,10 @@ app.use(
 app.use(currentUser);
 
 // routes
-app.use(createTicketRouter);
-app.use(showTicketRouter);
-app.use(showAllTicketsRouter);
-app.use(updateTicketRouter);
+app.use(createOrderRouter);
+app.use(showOrderRouter);
+app.use(showAllOrdersRouter);
+app.use(deleteOrderRouter);
 
 // handling unknown routes
 // throw syntax is working inside async block because of the package express-async-errors

@@ -10,6 +10,8 @@ import {
 import { body } from 'express-validator';
 import { Ticket } from '../models/ticket';
 import { Order } from '../models/order';
+
+const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 const router = express.Router();
 router.post(
   '/api/orders',
@@ -35,8 +37,18 @@ router.post(
       throw new BadRequestError('Ticket is already reserved');
     }
     // calculate an expiration date for this order
+    const expiration = new Date();
+    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
     // Build the order and save it to the database
+    const order = Order.build({
+      userId: req.currentUser!.id,
+      status: OrderStatus.Created,
+      expiresAt: expiration,
+      ticket: ticket,
+    });
+    await order.save();
     // publish an event that an order was created
+    res.status(201).send(order);
   }
 );
 export { router as createOrderRouter };

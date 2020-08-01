@@ -3,9 +3,9 @@ import { json } from 'body-parser';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@skmtickets/common';
-import { createOrderRouter } from './routes/new';
+import { newOrderRouter } from './routes/new';
 import { showOrderRouter } from './routes/show';
-import { showAllOrdersRouter } from './routes';
+import { indexOrderRouter } from './routes';
 import { deleteOrderRouter } from './routes/delete';
 
 const app = express();
@@ -29,9 +29,9 @@ app.use(
 app.use(currentUser);
 
 // routes
-app.use(createOrderRouter);
+app.use(newOrderRouter);
 app.use(showOrderRouter);
-app.use(showAllOrdersRouter);
+app.use(indexOrderRouter);
 app.use(deleteOrderRouter);
 
 // handling unknown routes

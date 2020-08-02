@@ -8,6 +8,7 @@ export interface TicketUpdatedEvent {
   // data that is expected to see in this event that will be emitted by listener class
   data: {
     id: string;
+    version: number;
     title: string;
     price: number;
     userId: string;

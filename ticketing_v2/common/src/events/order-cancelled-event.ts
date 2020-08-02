@@ -8,6 +8,7 @@ export interface OrderCancelledEvent {
   // data that is expected to see in this event that will be emitted by listener class
   data: {
     id: string;
+    version: number;
     ticket: {
       id: string;
     };

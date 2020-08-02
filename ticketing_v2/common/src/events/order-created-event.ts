@@ -9,6 +9,7 @@ export interface OrderCreatedEvent {
   // data that is expected to see in this event that will be emitted by listener class
   data: {
     id: string;
+    version: number;
     status: OrderStatus;
     userId: string;
     expiresAt: string;
